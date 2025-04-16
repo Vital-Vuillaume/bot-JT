@@ -8,13 +8,11 @@ from selenium.webdriver.common.keys import Keys
 
 
 
-print("Il faut qu'il y ai deja au moins un cours pour que le script fonctionne.")
-
 username = input("Ecrivez votre nom d'utilisateur : ")
 password = input("Ecrivez votre mot de passe : ")
 cours = input("Ecrivez la date de création du JT, exemple : 15.04.2025 : ")
-date = input("Ecrivez le jour du cours, exemple : 20 : ")
-periode = int(input("Ecrivez nombre de periode : "))
+date = input("Ecrivez le jour du cours, exemple : 16.04.2025 : ")
+periode = input("Ecrivez nombre de periode : ")
 inputDo = input("Ecrivez en bref le ce que vous avez fait pendant le cours, exemple : html et css mais les bases : ")
 graphic = input("Si vous voulez avoir l'interface ecrivez yes sinon mettez autres choses : ")
 
@@ -68,12 +66,14 @@ btnAdd.click()
 time.sleep(0.2)
 
 btnCalendar = driver.find_element(By.CSS_SELECTOR, ".ant-calendar-picker-input")
-btnCalendar.click()
+driver.execute_script("arguments[0].click();", btnCalendar)
 
 time.sleep(0.2)
 
-btnDate = driver.find_element(By.XPATH, f"//div[contains(@class, 'ant-calendar-date') and normalize-space(text())='{date}']")
-btnDate.click()
+inputDate = driver.find_element(By.CSS_SELECTOR, "input.ant-calendar-input")
+driver.execute_script("arguments[0].removeAttribute('readonly')", inputDate)
+inputDate.send_keys(Keys.CONTROL, 'a' + Keys.DELETE)
+inputDate.send_keys(date)
 
 time.sleep(0.2)
 
