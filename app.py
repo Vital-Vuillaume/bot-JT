@@ -122,4 +122,4 @@ if retry.lower() != "yes":
     driver.quit()
 else:
     driver.quit()
-    subprocess.run(["python3", __file__])
+    subprocess.run(["python3", __file__], check=True)
